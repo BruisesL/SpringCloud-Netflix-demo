@@ -1,0 +1,23 @@
+server:
+  port: 10030
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/ # 表示注册中心的地址
+  instance: # 打开IP注册
+    instance-id: ${spring.application.name}:${server.port} # 设置实例名称
+    prefer-ip-address: true # 开启IP注册
+
+# 指定服务名称，此服务下的集群所有服务都叫此服务名
+spring:
+  application:
+    name: pay-server
+
+logging:
+  level:
+    eth.bruises.feignclient.UserFeignClient: debug
+
+feign:
+  hystrix:
+    enabled: true # 打开hystrix断路器

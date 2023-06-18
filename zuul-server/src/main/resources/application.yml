@@ -1,0 +1,18 @@
+server:
+  port: 10000
+spring:
+  application:
+    name: zuul-server
+eureka:
+  client: # Eureka客户端配置，指向注册中心地址
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${server.port} #设置实例名称
+    prefer-ip-address: true # 开启ip注册
+zuul:
+  prefix: "/apis"  #统一访问前缀
+  ignoredServices: "*"  #禁用掉使用浏览器通过服务名的方式访问服务
+  routes:
+    pay-server: "/pay/**"   #指定pay-server这个服务使用 /pay路径来访问  - 别名
+    order-server: "/order/**"   #指定order-server这个服务使用 /order路径来访问
